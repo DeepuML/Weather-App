@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    image: deepubhai/weather-app
+    ports:
+      - "3000:80"
+    deploy:
+      mode: replicated
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+        reservations:
+          cpus: "0.25"
+          memory: "256M"
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: overlay
